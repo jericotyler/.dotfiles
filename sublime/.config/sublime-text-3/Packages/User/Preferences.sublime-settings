@@ -1,0 +1,27 @@
+{
+	"added_words":
+	[
+		"Torii",
+		"backronym"
+	],
+	"color_inactive_tabs": true,
+	"color_scheme": "Packages/Theme - Afterglow/Afterglow.tmTheme",
+	"default_line_ending": "unix",
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 9,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"rulers":
+	[
+		80,
+		120
+	],
+	"save_on_focus_lost": true,
+	"spell_check": true,
+	"tabs_padding_small": true,
+	"tabs_small": true,
+	"theme": "Afterglow.sublime-theme",
+	"trim_trailing_white_space_on_save": true
+}

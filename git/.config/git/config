@@ -1,0 +1,14 @@
+[user]
+	name = Jeremy T Swink
+	email = jeremytswink@gmail.com 
+	
+[core]
+	editor = nano
+[color]
+	ui = always
+	diff = always
+	branch = always
+	interactive = always
+	status = always
+[merge]
+	renamelimit = 8192

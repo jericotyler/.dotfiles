@@ -1,0 +1,278 @@
+#!/bin/bash
+# Methods and the like
+log() {
+    echo -e "[*] $1" >&2
+}
+
+prompt() {
+    read -p "[*] $1 [y/N] " -n 1 -r
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+# Core packages Super dirty
+pkgs=(
+    "acpi"
+    "acpi_call"
+    "adobe-source-code-pro-fonts"
+    "adobe-source-han-sans-cn-fonts"
+    "adobe-source-han-sans-jp-fonts"
+    "adobe-source-han-sans-kr-fonts"
+    "adobe-source-han-sans-otc-fonts"
+    "adobe-source-han-sans-tw-fonts"
+    "adobe-source-han-serif-cn-fonts"
+    "adobe-source-han-serif-jp-fonts"
+    "adobe-source-han-serif-kr-fonts"
+    "adobe-source-han-serif-otc-fonts"
+    "adobe-source-han-serif-tw-fonts"
+    "adobe-source-sans-pro-fonts"
+    "adobe-source-serif-pro-fonts"
+    "alsa-utils"
+    "arandr"
+    "arc-gtk-theme"
+    "arch-install-scripts"
+    "awesome-terminal-fonts"
+    "baka-mplayer"
+    "bash-completion"
+    "bbswitch"
+    "blueman"
+    "bluez-firmware"
+    "bluez-utils"
+    "bumblebee"
+    "calendar-indicator"
+    "calibre"
+    "catimg"
+    "cava"
+    "cli-visualizer"
+    "compton"
+    "darktable-git"
+    "deluge"
+    "dmenu"
+    "escrotum-git"
+    "feh"
+    "filelight"
+    "fish"
+    "flashplayer-standalone"
+    "freecad"
+    "freerdp"
+    "geteltorito"
+    "gparted"
+    "gptfdisk"
+    "gqrx"
+    "gtk-theme-arc-flatabulous-git"
+    "gtk-theme-arc-grey-git"
+    "hexchat"
+    "htop"
+    "i3-gaps"
+    "i3blocks"
+    "i3lock-color-git"
+    "i3status"
+    "imagemagick"
+    "inconsolata-psf-git"
+    "inkscape"
+    "kcc"
+    "lib32-gtk2"
+    "lib32-libpulse"
+    "lib32-libxrandr"
+    "lib32-openal"
+    "lib32-primus"
+    "lolcat"
+    "love"
+    "lxappearance-gtk3"
+    "maim"
+    "mangle-git"
+    "mesa-demos"
+    "minecraft-launcher"
+    "minicom"
+    "mplayer"
+    "multimc-git"
+    "nemo"
+    "nemo-preview"
+    "neofetch"
+    "network-manager-applet"
+    "networkmanager"
+    "networkmanager-dispatcher-ntpd"
+    "ntfs-3g"
+    "numix-circle-icon-theme-git"
+    "nvidia"
+    "nyancat"
+    "openssh"
+    "pavucontrol"
+    "peazip-gtk2"
+    "pepper-flash"
+    "perl"
+    "powerline"
+    "powerline-fonts"
+    "primus"
+    "procps-ng"
+    "psmisc"
+    "pulseaudio-alsa"
+    "python-pip"
+    "qemu"
+    "rainbow"
+    "ranger"
+    "remmina"
+    "remmina-plugin-rdesktop"
+    "rofi"
+    "scribus"
+    "scrot"
+    "skypeforlinux-bin"
+    "sl"
+    "steam-native-runtime"
+    "sublime-text"
+    "systemd-sysvcompat"
+    "terminus-font"
+    "termite"
+    "tmux"
+    "tor-browser"
+    "ttf-font-awesome"
+    "ttf-font-icons"
+    "ttf-humor-sans"
+    "ttf-liberation"
+    "ttf-ms-fonts"
+    "tumbld-git"
+    "ufraw-thumbnailer"
+    "unigine-valley"
+    "unrar"
+    "viewnior"
+    "vim"
+    "vivaldi"
+    "vivaldi-widevine"
+    "xf86-video-intel"
+    "xf86-video-vesa"
+    "xfsprogs"
+    "xfsudo"
+    "yacpi"
+    "youtube-dl"
+    "zip"
+)
+
+# Optional extra packages that I enjoy having
+pkgs_extra=(
+
+)
+
+# Where ma' dotfiles at, yo?
+stows=(
+    "fish"
+    "git"
+    "termite"
+    "mpv"
+    "misc"
+    "sublime"
+    "wm"
+    "xorg"
+)
+
+# Now we install things
+# Sudo all day every day
+log "Gonna need that password yo"
+sudo -v
+
+log "Checking to see if needed things are installed..."
+sudo pacman -S  --ignore=gcc --needed --noconfirm base-devel expac yajl git stow
+
+# Remove stows
+log "Cleaning up existing shmuts..."
+rm -rf ~/.config/fish
+rm -rf ~/.config/git
+rm -rf ~/.config/i3
+rm -rf ~/.config/i3status
+rm -rf ~/.config/mpv
+rm -rf ~/.config/sublime-text-3
+rm -rf ~/.tmux.conf
+rm -rf ~/.xinitrc
+
+# Install the damn dotfiles
+log "Installing dotfiles..."
+for ((i=0; i<=$((${#stows[@]} - 1)); i++)); do
+    stow -d ~/.dotfiles -t ~ ${stows[i]}
+    log "\t${stows[i]} dotfiles installed!"
+done
+
+# Install the prerequisites
+log "Installing prerequisites..."
+
+sudo rm -rf /etc/pacman.conf
+sudo stow -d ~/.dotfiles -t / pacman-root
+log "Pacman config installed!"
+
+log "Resizing /tmp"
+sudo mount -o remount,size=4G,noatime /tmp
+
+log "Synchronizing repositories..."
+sudo pacman -Syy
+
+log "Checking for pacaur"
+if [[ $(pacman -Qs pacaur) == "" ]]; then
+    log "Fetching keys for packages..."
+    gpg --recv-keys --keyserver hkp://pgp.mit.edu 1EB2638FF56C0C53
+    sudo pacman-key --refresh-keys
+
+    log "Building pacaur..."
+    broot=$(mktemp -d)
+
+    mkdir -p "$broot"
+    cd "$broot" || exit 1
+
+    git clone "https://aur.archlinux.org/cower.git"
+    git clone "https://aur.archlinux.org/pacaur.git"
+
+    cd "${broot}/cower" || exit 1
+    makepkg -s -i --noconfirm
+
+    cd "${broot}/pacaur" || exit 1
+    makepkg -s -i --noconfirm
+
+    log "Cleaning up..."
+    cd "$HOME" || exit 1
+    rm -rf "$broot"
+else
+    log "Looks like pacaur is already installed"
+fi
+
+# Install the main packages
+log "Installing core packages..."
+for ((i=0; i<=$((${#pkgs[@]} - 1)); i++)); do
+    if [[ $(pacaur -Qs ${pkgs[i]}) == "" ]]; then
+        pacaur --noconfirm --noedit -S ${pkgs[i]}
+    fi
+done
+log "Done installing core packages"
+
+# Install extra?
+if $(prompt "Install extra packages?"); then
+    echo ""
+    log "Installing extra packages..."
+    pip install --user voltron
+    for ((i=0; i<=$((${#pkgs_extra[@]} - 1)); i++)); do
+        if [[ $(pacaur -Qs ${pkgs_extra[i]}) == "" ]]; then
+            pacaur --noconfirm --noedit -S ${pkgs_extra[i]}
+        fi
+    done
+    log "Done installing extra packages"
+else
+    echo
+    log "If you say so"
+fi
+
+
+# Remove orphans
+if [[ ! $(pacman -Qtdq) == "" ]]; then
+    log "Removing orphans..."
+    sudo pacman -Rsn --noconfirm $(pacman -Qtdq)
+else
+    log "No orphans, huzza!"
+fi
+
+# Fix temp
+log "Fixing /tmp size"
+sudo mount -o remount,size=1G,noatime /tmp
+
+
+# And done~
+log "All done, have a good one"
+exit 0

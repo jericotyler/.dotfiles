@@ -1,0 +1,6 @@
+[
+	{ "keys": ["ctrl+alt+up"], "command": "select_lines", "args": {"forward": false} },
+	{ "keys": ["ctrl+alt+down"], "command": "select_lines", "args": {"forward": true} },
+	{ "keys": ["ctrl+shift+c"], "command": "unexpand_tabs" },
+	{ "keys": ["ctrl+shift+4"], "command": "set_setting", "args": {"setting": "tab_size", "value": 4} }
+]

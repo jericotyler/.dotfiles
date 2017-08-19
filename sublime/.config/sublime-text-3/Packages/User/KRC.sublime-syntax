@@ -1,0 +1,149 @@
+%YAML 1.2
+---
+file_extensions:
+  - src
+  - dat
+scope: source.KRL
+contexts:
+  main:
+    - match: '"'
+      captures:
+        0: punctuation.definition.string.begin.KRL
+      push:
+        - meta_scope: string.quoted.double.KRL
+        - match: '"'
+          captures:
+            0: punctuation.definition.string.end.KRL
+          pop: true
+        - include: string_placeholder
+
+    - match: '\;(FOLD.*|ENDFOLD)\b'
+      scope: keyword.control.import.KRL
+
+    - match: ';'
+      scope: punctuation.definition.comment.KRL
+      push: line_comment
+
+    - match: '\b(IF|ENDIF|THEN|ELSE|FOR|TO|ENDFOR|LOOP|ENDLOOP|WHILE|ENDWHILE|CONTINUE|WAIT|SEC|SWITCH|CASE|DEFAULT|ENDSWITCH|HALT|BREAK|RETURN)\b'
+      scope: keyword.control.KRL
+
+    - match: '\b(ANIN|SIGNAL|ANOUT|CHANNEL|CIRC|CIRC_REL|CONFIRM|DIGIN|EXIT|GOTO|IMPORT|IS|INTERRUPT|WHEN|DO|LIN|LIN_REL|PTP|PTP_REL|REPEAT|UNTIL)\b'
+      scope: keyword.control.KRL
+
+    - match: '\b(RESUME|TRIGGER|DISTANCE|DELAY|PATH|)\b'
+      scope: keyword.control.KRL
+
+    - match: ':[A-z][A-Z0-9_]*\b'
+      scope: constant.language.KRL
+
+      # CMD_STAT Enum
+    - match: '\b(CMD_OK|CMD_TIMEOUT|DATA_OK|DATA_BLK|DATA_END|CMD_ABORT|CMD_REJ|CMD_PART|CMD_SYN|FMT_ERR)\b'
+      scope: constant.language.KRL
+
+      # MODUS_T Enum
+    - match: '\b(SYNC|ASYNC|ABS|COND)\b'
+      scope: constant.language.KRL
+
+    - match: '\b(DEF|DEFFCT|ENDFCT|END|DECL|STRUC|ENUM|DEFDAT|ENDDAT)\b'
+      scope: storage.type.KRL
+
+    - match: '\b(GLOBAL|CONST|PUBLIC|PRIVATE|EXT|EXTFCT)\b'
+      scope: storage.modifier.KRL
+
+    - match: '\#[_A-Za-z]+\b'
+      scope: constant.language.KRL
+
+    - match: '\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f|ll|LL|ull|ULL)?\b'
+      scope: constant.numeric.KRL
+
+    - match: '\b(IN|OUT)\b'
+      scope: keyword.operator.logical.KRL
+
+    - match: '\b(NOT|AND|OREXOR)\b'
+      scope: keyword.operator.logical.KRL
+
+    - match: '\b(B_NOT|B_AND|B_OR|B_EXOR)\b'
+      scope: keyword.operator.bitwise.KRL
+
+    - match: '\>\='
+      scope: keyword.operator.comparison.KRL
+
+    - match: '\<\='
+      scope: keyword.operator.comparison.KRL
+
+    - match: '\=\=|\<|\>|\<\>'
+      scope: keyword.operator.comparison.KRL
+
+    - match: '\+|\-\/|\*|\='
+      scope: keyword.operator.arithmetic.KRL
+
+    - match: '\b:\b'
+      scope: keyword.operator.arithmetic.KRL
+
+    - match: '\b(TRUE|FALSE)\b'
+      scope: constant.language.KRL
+
+    - match: '\b(REAL|INT|CHAR|BOOL|FRAME|POS|E6POS|AXIS|E6AXIS|ON|OFF)\b'
+      scope: support.type.sys-types.KRL
+
+    - match: '\$[_A-Za-z]+\b'
+      scope: support.type.sys-types.KRL
+
+    - match: '\{'
+      scope: open.curly.bracket.KRL
+
+    - match: '\}'
+      scope: close.curly.bracket.KRL
+
+    - match: '\('
+      scope: open.round.bracket.KRL
+
+    - match: '\)'
+      scope: close.round.bracket.KRL
+
+    - match: '\['
+      scope: open.angle.bracket.KRL
+
+    - match: '\]'
+      scope: close.angle.bracket.KRL
+
+    - match: '\.'
+      scope: period.KRL
+
+    - match: '\,'
+      scope: coma.KRL
+
+    - match: '\w+\s*(?=\()'
+      scope: meta.function.KRL entity.name.function.KRL
+
+    - match: '(?<=\.)\w+(?=[^\w|\.])'
+      scope: meta.function.KRL meta.block.KRL meta.function-call.KRL support.function.any-method.KRL
+
+    - match: '(?<=\:\:)\w+'
+      scope: meta.function.KRL entity.name.function.KRL
+
+    - match: '\w+\:\:'
+      scope: meta.function.KRL entity.name.function.KRL
+
+    - match: '\:\:\w+'
+      scope: meta.function.KRL entity.name.function.KRL
+
+
+  line_comment:
+    - meta_scope: comment.line.KRL
+    - match: $
+      pop: true
+
+  string_placeholder:
+    - match: |-
+        (?x)%
+          (\d+\$)?                             # field (argument #)
+          [#0\- +']*                           # flags
+          [,;:_]?                              # separator character (AltiVec)
+          ((-?\d+)|\*(-?\d+\$)?)?              # minimum field width
+          (\.((-?\d+)|\*(-?\d+\$)?)?)?         # precision
+          (hh|h|ll|l|j|t|z|q|L|vh|vl|v|hv|hl)? # length modifier
+          [diouxXDOUeEfFgGaACcSspn%]           # conversion type
+      scope: constant.other.placeholder.KRL
+    - match: "%"
+      scope: invalid.illegal.placeholder.KRL

@@ -1,0 +1,13 @@
+# Sublime Text config ignores
+# No, you can't have my license
+License.sublime_license
+Backup/
+Cache/
+Local/
+Index/
+sublimeBookmarks.pickle
+Package\ Control.cache/
+Package\ Control.last-run
+# Neovim ignores
+neovim/.config/nvim/.netrwhist
+plugged/

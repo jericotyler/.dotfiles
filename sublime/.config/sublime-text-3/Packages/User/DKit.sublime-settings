@@ -1,0 +1,7 @@
+{
+  "dcd_path": "/home/xampp/.bin/",
+  "dcd_port": 9166,
+  "include_paths": [
+    "/usr/include/dlang/dmd/"
+  ]
+}
