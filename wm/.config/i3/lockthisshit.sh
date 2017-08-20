@@ -48,16 +48,16 @@ i3lock              \
 --datestr="%A, %m %Y" \
 \
 -i $tmpbg \
---timepos="(x+800)-(cw/2):(y+420)-(ch/2)" \
+--timepos="(x+960)-(cw/2):(y+540)-(ch/2)" \
 --datepos="tx:ty+75" \
---datesize=70 \
---timesize=125 \
+--datesize=25 \
+--timesize=75 \
 --veriftext="Diddling The Bits..." \
 --textsize=40 \
 --modsize=10 \
 --radius=200 \
---timefont="FuckYouv2" \
---datefont="FuckYouv2" \
+--timefont="xos4 Terminus" \
+--datefont="xos4 Terminus" \
 --wrongtext="Fuck Off" \
 
 #scrot

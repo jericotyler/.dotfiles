@@ -1,7 +1,7 @@
 ####ToDo####
 #Clean up all the bullshit in this
 
-
+exec --no-startup-id xrandr --dpi 96
 exec --no-startup-id ~/.fehbg &
 exec --no-startup-id nm-applet &
 exec --no-startup-id compton -CGb &
@@ -37,7 +37,8 @@ font pango:Source Sans Pro-10 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+ bindsym $mod+Return exec termite
 
 #LOCK THE SCREEN
 bindsym $mod+Ctrl+l exec ~/.config/i3/lockthisshit.sh
