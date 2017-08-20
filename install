@@ -15,54 +15,39 @@ prompt() {
 
 # Core packages Super dirty
 pkgs=(
+
+    #video
+    "xorg-server"
+    "xorg-apps"
+    "xorg-xinit"
+    "nvidia"
+    "xf86-video-intel"
+    "xf86-video-vesa"
+    "bbswitch"
+    "bumblebee"
+    "primus"
+
+
+
     "acpi"
     "acpi_call"
     "adobe-source-code-pro-fonts"
-    "adobe-source-han-sans-cn-fonts"
-    "adobe-source-han-sans-jp-fonts"
-    "adobe-source-han-sans-kr-fonts"
-    "adobe-source-han-sans-otc-fonts"
-    "adobe-source-han-sans-tw-fonts"
-    "adobe-source-han-serif-cn-fonts"
-    "adobe-source-han-serif-jp-fonts"
-    "adobe-source-han-serif-kr-fonts"
-    "adobe-source-han-serif-otc-fonts"
-    "adobe-source-han-serif-tw-fonts"
     "adobe-source-sans-pro-fonts"
     "adobe-source-serif-pro-fonts"
     "alsa-utils"
     "arandr"
     "arc-gtk-theme"
-    "arch-install-scripts"
     "awesome-terminal-fonts"
-    "baka-mplayer"
     "bash-completion"
-    "bbswitch"
-    "blueman"
-    "bluez-firmware"
-    "bluez-utils"
-    "bumblebee"
-    "calendar-indicator"
-    "calibre"
+    
     "catimg"
-    "cava"
-    "cli-visualizer"
     "compton"
-    "darktable-git"
-    "deluge"
     "dmenu"
     "escrotum-git"
     "feh"
-    "filelight"
     "fish"
-    "flashplayer-standalone"
-    "freecad"
-    "freerdp"
-    "geteltorito"
     "gparted"
     "gptfdisk"
-    "gqrx"
-    "gtk-theme-arc-flatabulous-git"
     "gtk-theme-arc-grey-git"
     "hexchat"
     "htop"
@@ -72,23 +57,14 @@ pkgs=(
     "i3status"
     "imagemagick"
     "inconsolata-psf-git"
-    "inkscape"
-    "kcc"
     "lib32-gtk2"
     "lib32-libpulse"
     "lib32-libxrandr"
     "lib32-openal"
     "lib32-primus"
-    "lolcat"
-    "love"
     "lxappearance-gtk3"
     "maim"
-    "mangle-git"
     "mesa-demos"
-    "minecraft-launcher"
-    "minicom"
-    "mplayer"
-    "multimc-git"
     "nemo"
     "nemo-preview"
     "neofetch"
@@ -97,37 +73,23 @@ pkgs=(
     "networkmanager-dispatcher-ntpd"
     "ntfs-3g"
     "numix-circle-icon-theme-git"
-    "nvidia"
-    "nyancat"
     "openssh"
     "pavucontrol"
     "peazip-gtk2"
-    "pepper-flash"
     "perl"
     "powerline"
     "powerline-fonts"
-    "primus"
     "procps-ng"
     "psmisc"
     "pulseaudio-alsa"
     "python-pip"
-    "qemu"
-    "rainbow"
-    "ranger"
-    "remmina"
-    "remmina-plugin-rdesktop"
     "rofi"
-    "scribus"
     "scrot"
-    "skypeforlinux-bin"
     "sl"
-    "steam-native-runtime"
     "sublime-text"
     "systemd-sysvcompat"
     "terminus-font"
-    "termite"
     "tmux"
-    "tor-browser"
     "ttf-font-awesome"
     "ttf-font-icons"
     "ttf-humor-sans"
@@ -135,25 +97,75 @@ pkgs=(
     "ttf-ms-fonts"
     "tumbld-git"
     "ufraw-thumbnailer"
-    "unigine-valley"
     "unrar"
     "viewnior"
     "vim"
     "vivaldi"
-    "vivaldi-widevine"
-    "xf86-video-intel"
-    "xf86-video-vesa"
+    
     "xfsprogs"
     "xfsudo"
+
     "yacpi"
-    "youtube-dl"
     "zip"
+    "yaourt"
 )
 
 # Optional extra packages that I enjoy having
 pkgs_extra=(
 
+    "baka-mplayer"
+    "calibre"
+    "cava"
+    "cli-visualizer"
+    "deluge"
+    "filelight"
+    "flashplayer-standalone"
+    "kcc"
+    "mplayer"
+    "youtube-dl"
+    "vivaldi-widevine"
+    "tor-browser"
+    "steam-native-runtime"
+    "love"
+    "skypeforlinux-bin"
+    "nyancat"
+    "pepper-flash"
+    "multimc5"
+
+
 )
+
+#utils I sometimes need
+pkgs_utils=(
+
+    "adobe-source-han-sans-cn-fonts"
+    "adobe-source-han-sans-kr-fonts"
+    "adobe-source-han-sans-otc-fonts"
+    "adobe-source-han-sans-tw-fonts"
+    "adobe-source-han-serif-cn-fonts"
+    "adobe-source-han-sans-jp-fonts"
+    "adobe-source-han-serif-jp-fonts"
+    "adobe-source-han-serif-kr-fonts"
+    "adobe-source-han-serif-otc-fonts"
+    "adobe-source-han-serif-tw-fonts"
+    "arch-install-scripts"
+    "darktable-git"
+    "freecad"
+    "gqrx"
+    "inkscape"
+    "lolcat"
+    "mangle-git"
+    "unigine-valley"
+    "scribus"
+    "rainbow"
+    "qemu"
+    "ranger"
+    "freerdp"
+    "remmina"
+    "remmina-plugin-rdesktop"
+    
+
+    )
 
 # Where ma' dotfiles at, yo?
 stows=(
@@ -243,14 +255,29 @@ for ((i=0; i<=$((${#pkgs[@]} - 1)); i++)); do
 done
 log "Done installing core packages"
 
-# Install extra?
-if $(prompt "Install extra packages?"); then
+# Install Fun?
+if $(prompt "Install Funtime packages?"); then
     echo ""
     log "Installing extra packages..."
-    pip install --user voltron
     for ((i=0; i<=$((${#pkgs_extra[@]} - 1)); i++)); do
         if [[ $(pacaur -Qs ${pkgs_extra[i]}) == "" ]]; then
             pacaur --noconfirm --noedit -S ${pkgs_extra[i]}
+        fi
+    done
+    pacaur -S termite
+    log "Done installing extra packages"
+else
+    echo
+    log "If you say so"
+fi
+
+# Install Utils?
+if $(prompt "Install extra packages?"); then
+    echo ""
+    log "Installing extra packages..."
+    for ((i=0; i<=$((${#pkgs_utils[@]} - 1)); i++)); do
+        if [[ $(pacaur -Qs ${pkgs_utils[i]}) == "" ]]; then
+            pacaur --noconfirm --noedit -S ${pkgs_utils[i]}
         fi
     done
     log "Done installing extra packages"
@@ -258,7 +285,6 @@ else
     echo
     log "If you say so"
 fi
-
 
 # Remove orphans
 if [[ ! $(pacman -Qtdq) == "" ]]; then
