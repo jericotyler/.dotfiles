@@ -13,6 +13,13 @@ prompt() {
     fi
 }
 
+pkgs_tricky=(
+    "scrot"
+    "rofi"
+    "powerline"
+    "powerline-fonts"
+    )
+
 # Core packages Super dirty
 pkgs=(
 
@@ -23,25 +30,22 @@ pkgs=(
     "nvidia"
     "xf86-video-intel"
     "xf86-video-vesa"
-    "bbswitch"
-    "bumblebee"
-    "primus"
-
-
-
-    "acpi"
+    "compton"
+    "i3-gaps"
+    "i3blocks"
+    "i3lock-color-git"
+    "i3status"
+    "arandr"
+    #others
     "acpi_call"
     "adobe-source-code-pro-fonts"
     "adobe-source-sans-pro-fonts"
     "adobe-source-serif-pro-fonts"
     "alsa-utils"
-    "arandr"
     "arc-gtk-theme"
     "awesome-terminal-fonts"
     "bash-completion"
-    
     "catimg"
-    "compton"
     "dmenu"
     "escrotum-git"
     "feh"
@@ -50,18 +54,12 @@ pkgs=(
     "gptfdisk"
     "gtk-theme-arc-grey-git"
     "hexchat"
-    "htop"
-    "i3-gaps"
-    "i3blocks"
-    "i3lock-color-git"
-    "i3status"
     "imagemagick"
     "inconsolata-psf-git"
     "lib32-gtk2"
     "lib32-libpulse"
     "lib32-libxrandr"
     "lib32-openal"
-    "lib32-primus"
     "lxappearance-gtk3"
     "maim"
     "mesa-demos"
@@ -69,22 +67,16 @@ pkgs=(
     "nemo-preview"
     "neofetch"
     "network-manager-applet"
-    "networkmanager"
     "networkmanager-dispatcher-ntpd"
     "ntfs-3g"
     "numix-circle-icon-theme-git"
-    "openssh"
     "pavucontrol"
     "peazip-gtk2"
     "perl"
-    "powerline"
-    "powerline-fonts"
     "procps-ng"
     "psmisc"
     "pulseaudio-alsa"
     "python-pip"
-    "rofi"
-    "scrot"
     "sl"
     "sublime-text"
     "systemd-sysvcompat"
@@ -92,19 +84,12 @@ pkgs=(
     "tmux"
     "ttf-font-awesome"
     "ttf-font-icons"
-    "ttf-humor-sans"
-    "ttf-liberation"
-    "ttf-ms-fonts"
-    "tumbld-git"
-    "ufraw-thumbnailer"
     "unrar"
     "viewnior"
     "vim"
     "vivaldi"
-    
     "xfsprogs"
     "xfsudo"
-
     "yacpi"
     "zip"
     "yaourt"
@@ -131,13 +116,15 @@ pkgs_extra=(
     "nyancat"
     "pepper-flash"
     "multimc5"
-
-
 )
 
 #utils I sometimes need
 pkgs_utils=(
-
+    "ttf-humor-sans"
+    "ttf-liberation"
+    "ttf-ms-fonts"
+    "tumbld-git"
+    "ufraw-thumbnailer"
     "adobe-source-han-sans-cn-fonts"
     "adobe-source-han-sans-kr-fonts"
     "adobe-source-han-sans-otc-fonts"
@@ -163,8 +150,6 @@ pkgs_utils=(
     "freerdp"
     "remmina"
     "remmina-plugin-rdesktop"
-    
-
     )
 
 # Where ma' dotfiles at, yo?
@@ -194,7 +179,7 @@ rm -rf ~/.config/git
 rm -rf ~/.config/i3
 rm -rf ~/.config/i3status
 rm -rf ~/.config/mpv
-rm -rf ~/.config/sublime-text-3
+rm -rf ~/.config/sublime-text-2
 rm -rf ~/.tmux.conf
 rm -rf ~/.xinitrc
 
@@ -255,6 +240,14 @@ for ((i=0; i<=$((${#pkgs[@]} - 1)); i++)); do
 done
 log "Done installing core packages"
 
+log "Installing tricky packages..."
+for ((i=0; i<=$((${#pkgs_tricky[@]} - 1)); i++)); do
+    if [[ $(pacaur -Qs ${pkgs_tricky[i]}) == "" ]]; then
+        pacaur --noedit -S ${pkgs[i]}
+    fi
+done
+log "Done installing tricky packages"
+
 # Install Fun?
 if $(prompt "Install Funtime packages?"); then
     echo ""
@@ -265,7 +258,7 @@ if $(prompt "Install Funtime packages?"); then
         fi
     done
     pacaur -S termite
-    log "Done installing extra packages"
+    log "Done installing Funtime packages"
 else
     echo
     log "If you say so"
