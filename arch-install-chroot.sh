@@ -19,7 +19,8 @@ genhostname(){
     log "You wrote"
     echo localhostname
     if $(prompt "Are you sure?"); then
-        echo localhostname >> /etc/hostname
+	echo ""
+        echo "JERI-LIN" >> /etc/hostname
         return
     else
         genhostname
@@ -39,7 +40,7 @@ locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
 #Hostname time
-genhostname
+echo "JERI-LIN" > /etc/hostname
 
 #Set the root password
 log "Set a root password!"

@@ -12,8 +12,13 @@ prompt() {
     fi
 }
 
+
+
 systemctl enable NetworkManager
 systemctl start NetworkManager
+
+sleep 30
+
 pacman -Syu
 useradd -m -g users -G wheel,storage,power jericotyler
 passwd jericotyler

@@ -14,12 +14,13 @@ prompt() {
 
 
 install_system(){
-
+	#fucking goddamn network
+	dhcpcd
 	log "Time to set my clock and partition the drive!"
 	
     timedatectl set-ntp true
 	#Let user set up the parts
-    cfdisk
+	cfdisk /dev/sda
     #Make Swap and format the parts
 	mkswap /dev/sda2
     swapon /dev/sda2
@@ -27,9 +28,10 @@ install_system(){
     mkfs.ext4 /dev/sda3
 
     #Mounting the parts
-    mount /dev/sda3 /mnt
+	mount /dev/sda3 /mnt
+	mkdir /mnt/boot
+	mkdir /mnt/boot/efi
     mount /dev/sda1 /mnt/boot/efi
-
     #Install the base packages
     pacstrap /mnt base base-devel refind-efi htop networkmanager openssh git
 
@@ -40,11 +42,9 @@ install_system(){
     mkdir /mnt/installer
     cp arch-install-chroot.sh /mnt/installer/
     #Chroot and run other part of installer
-
-    arch-chroot /mnt sh /installer/install-chroot.sh
+    arch-chroot /mnt sh /installer/arch-install-chroot.sh
     
     #Unmount that shit
-    umount /mnt/boot/efi
     umount /mnt
 }
 
