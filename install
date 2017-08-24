@@ -63,11 +63,14 @@ pkgs=(
 )
 
 pkgs_fonts=(
+    "ttf-humor-sans"
+    "ttf-liberation"
+    "ttf-ms-fonts"
     "adobe-source-code-pro-fonts"
     "adobe-source-serif-pro-fonts"
     "adobe-source-sans-pro-fonts"
     "inconsolata-psf-git"
-    "awesome-terminal-fonts"
+    #"awesome-terminal-fonts"
     "ttf-font-icons"
     "ttf-font-awesome"
     "adobe-source-han-sans-cn-fonts"
@@ -135,9 +138,6 @@ pkgs_extra=(
 
 #utils I sometimes need
 pkgs_utils=(
-    "ttf-humor-sans"
-    "ttf-liberation"
-    "ttf-ms-fonts"
     "tumbld-git"
     "ufraw-thumbnailer"
     "arch-install-scripts"
@@ -245,6 +245,20 @@ for ((i=0; i<=$((${#pkgs[@]} - 1)); i++)); do
     fi
 done
 log "Done installing core packages"
+
+log "Installing Fonts..."
+for ((i=0; i<=$((${#pkgs_fonts[@]} - 1)); i++)); do
+    if [[ $(pacaur -Qs ${pkgs_fonts[i]}) == "" ]]; then
+        pacaur --noedit -S ${pkgs_fonts[i]}
+    fi
+done
+
+log "Installing Secondary..."
+for ((i=0; i<=$((${#pkgs_secondary[@]} - 1)); i++)); do
+    if [[ $(pacaur -Qs ${pkgs_secondary[i]}) == "" ]]; then
+        pacaur --noedit -S ${pkgs_secondary[i]}
+    fi
+done
 
 log "Installing tricky packages..."
 for ((i=0; i<=$((${#pkgs_tricky[@]} - 1)); i++)); do

@@ -12,6 +12,22 @@ prompt() {
     fi
 }
 
+setupefi(){
+
+if $(prompt "Is EFI already setup?"); then
+    echo ""
+    mount /dev/sda3 /mnt
+    return
+
+else
+    mkfs.vfat /dev/sda1
+    mount /dev/sda3 /mnt
+    mkdir /mnt/boot
+    mkdir /mnt/boot/efi
+    mount /dev/sda1 /mnt/boot/efi
+fi
+
+}
 
 install_system(){
 	#fucking goddamn network
@@ -23,16 +39,12 @@ install_system(){
     #Make Swap and format the parts
 	mkswap /dev/sda2
     swapon /dev/sda2
-	mkfs.vfat /dev/sda1
-    mkfs.ext4 /dev/sda3
+	mkfs.ext4 /dev/sda3
 
-    #Mounting the parts
-	mount /dev/sda3 /mnt
-	mkdir /mnt/boot
-	mkdir /mnt/boot/efi
-    mount /dev/sda1 /mnt/boot/efi
+    setupefi
+	
     #Install the base packages
-    pacstrap /mnt base base-devel refind-efi htop networkmanager openssh git
+    pacstrap /mnt base base-devel acpi refind-efi htop networkmanager openssh git
 
     #Gen the Fstab
     genfstab -p -U /mnt >> /mnt/etc/fstab

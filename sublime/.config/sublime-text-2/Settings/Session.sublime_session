@@ -22,10 +22,19 @@
 			"buffers":
 			[
 				{
-					"file": "/home/jericotyler/.config/i3/lockthisshit.sh",
+					"file": "/home/jericotyler/.Xresources",
 					"settings":
 					{
-						"buffer_size": 1371,
+						"buffer_size": 537,
+						"line_ending": "Unix",
+						"name": "! special"
+					}
+				},
+				{
+					"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
+					"settings":
+					{
+						"buffer_size": 534,
 						"line_ending": "Unix"
 					}
 				},
@@ -41,19 +50,32 @@
 					}
 				},
 				{
-					"file": "/home/jericotyler/.dotfiles/.Xresources",
+					"contents": "Section \"Device\"\n  Identifier  \"Intel Graphics\"\n  Driver      \"intel\"\n  Option	\"Backlight\" \"intel_backlight\"\nEndSection",
+					"file": "/etc/X11/xorg.conf.d/20-intel.conf",
+					"file_size": 80,
+					"file_write_time": 1503535854000000,
 					"settings":
 					{
-						"buffer_size": 537,
-						"line_ending": "Unix",
-						"name": "! special"
+						"buffer_size": 119,
+						"line_ending": "Unix"
 					}
 				},
 				{
-					"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
+					"contents": "\"Boot with standard options\"  \"ro root=UUID=e024d269-0498-4960-8bc4-eb89658fb8ed video.use_native_backlight=0\"\n\"Boot to single-user mode\"    \"ro root=UUID=e024d269-0498-4960-8bc4-eb89658fb8ed single video.use_native_backlight=0\"\n\"Boot with minimal options\"   \"ro root=UUID=e024d269-0498-4960-8bc4-eb89658fb8ed\"\n",
+					"file": "/boot/refind_linux.conf",
+					"file_size": 253,
+					"file_write_time": 1503318227000000,
 					"settings":
 					{
-						"buffer_size": 534,
+						"buffer_size": 311,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/boot/efi/EFI/refind/refind.conf",
+					"settings":
+					{
+						"buffer_size": 27928,
 						"line_ending": "Unix"
 					}
 				},
@@ -106,6 +128,12 @@
 			},
 			"file_history":
 			[
+				"/home/jericotyler/20-intel.conf",
+				"/home/jericotyler/.dotfiles/.Xresources",
+				"/home/jericotyler/.dotfiles/wm/.config/i3/i3blocks.conf",
+				"/home/jericotyler/.Xresources2",
+				"/home/jericotyler/.config/i3/lockthisshit.sh",
+				"/home/jericotyler/Downloads/README",
 				"/home/jericotyler/.config/i3/config",
 				"/home/jericotyler/.config/termite/config",
 				"/home/jericotyler/.Xresources",
@@ -150,32 +178,59 @@
 					[
 						{
 							"buffer": 0,
-							"file": "/home/jericotyler/.config/i3/lockthisshit.sh",
+							"file": "/home/jericotyler/.Xresources",
 							"settings":
 							{
-								"buffer_size": 1371,
+								"buffer_size": 537,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										846,
-										846
+										537,
+										537
 									]
 								],
 								"settings":
 								{
-									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+									"auto_name": "! special",
+									"syntax": "Packages/Text/Plain text.tmLanguage"
 								},
 								"translation.x": 0.0,
-								"translation.y": 450.0,
+								"translation.y": 0.0,
 								"zoom_level": 1.0
 							},
 							"type": "text"
 						},
 						{
 							"buffer": 1,
+							"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
+							"settings":
+							{
+								"buffer_size": 534,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										174,
+										174
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 2,
 							"file": "/home/jericotyler/.dotfiles/arch-install.sh",
 							"settings":
 							{
@@ -203,46 +258,19 @@
 							"type": "text"
 						},
 						{
-							"buffer": 2,
-							"file": "/home/jericotyler/.dotfiles/.Xresources",
-							"settings":
-							{
-								"buffer_size": 537,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										537,
-										537
-									]
-								],
-								"settings":
-								{
-									"auto_name": "! special",
-									"syntax": "Packages/Text/Plain text.tmLanguage"
-								},
-								"translation.x": 0.0,
-								"translation.y": 0.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
 							"buffer": 3,
-							"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
+							"file": "/etc/X11/xorg.conf.d/20-intel.conf",
 							"settings":
 							{
-								"buffer_size": 534,
+								"buffer_size": 119,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										37,
-										37
+										93,
+										93
 									]
 								],
 								"settings":
@@ -257,6 +285,58 @@
 						},
 						{
 							"buffer": 4,
+							"file": "/boot/refind_linux.conf",
+							"settings":
+							{
+								"buffer_size": 311,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										227,
+										227
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 5,
+							"file": "/boot/efi/EFI/refind/refind.conf",
+							"settings":
+							{
+								"buffer_size": 27928,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										26002,
+										26002
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/Text/Plain text.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 9660.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 6,
 							"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
 							"settings":
 							{
@@ -284,7 +364,7 @@
 							"type": "text"
 						},
 						{
-							"buffer": 5,
+							"buffer": 7,
 							"file": "/home/jericotyler/.dotfiles/user-install.sh",
 							"settings":
 							{
@@ -310,7 +390,7 @@
 							"type": "text"
 						},
 						{
-							"buffer": 6,
+							"buffer": 8,
 							"file": "/home/jericotyler/.dotfiles/install",
 							"settings":
 							{

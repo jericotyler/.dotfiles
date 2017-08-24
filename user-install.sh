@@ -20,7 +20,9 @@ systemctl start NetworkManager
 sleep 10
 
 pacman -Syu
-useradd -m -g users -G wheel,storage,power jericotyler
-passwd jericotyler
+log "What's the username?"
+read
+useradd -m -g users -G wheel,storage,power,uucp $REPLY
+passwd $REPLY
 pacman -S sudo
 EDITOR=nano visudo

@@ -12,6 +12,21 @@ prompt() {
     fi
 }
 
+installrefind(){
+    if $(prompt "Is refind installed?"); then
+        echo ""
+        return
+    else
+        #Bootloader time!
+        refind-install --alldrivers
+        nano /boot/efi/EFI/refind/refind.conf
+    fi
+
+
+
+
+}
+
 genhostname(){
 
     log "What's the hostname?"
@@ -47,9 +62,7 @@ log "Set a root password!"
 echo ""
 passwd
 
-#Bootloader time!
-refind-install --alldrivers
-nano /boot/efi/EFI/refind/refind.conf
+installrefind
 
 
 #ending the script

@@ -22,47 +22,18 @@
 			"buffers":
 			[
 				{
-					"file": "/home/jericotyler/.Xresources",
-					"settings":
-					{
-						"buffer_size": 537,
-						"line_ending": "Unix",
-						"name": "! special"
-					}
-				},
-				{
-					"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
-					"settings":
-					{
-						"buffer_size": 534,
-						"line_ending": "Unix"
-					}
-				},
-				{
-					"contents": "#!/bin/bash\nlog() {\n    echo -e \"[*] $1\" >&2\n}\n\nprompt() {\n    read -p \"[*] $1 [y/N] \" -n 1 -r\n    if [[ ! $REPLY =~ ^[Yy]$ ]]; then\n        return 1\n    else\n        return 0\n    fi\n}\n\n\ninstall_system(){\n	#fucking goddamn network\n	log \"Time to set my clock and partition the drive!\"\n	\n    timedatectl set-ntp true\n	#Let user set up the parts\n	cfdisk /dev/sda\n    #Make Swap and format the parts\n	mkswap /dev/sda2\n    swapon /dev/sda2\n	mkfs.vfat /dev/sda1\n    mkfs.ext4 /dev/sda3\n\n    #Mounting the parts\n	mount /dev/sda3 /mnt\n	mkdir /mnt/boot\n	mkdir /mnt/boot/efi\n    mount /dev/sda1 /mnt/boot/efi\n    #Install the base packages\n    pacstrap /mnt base base-devel acpi refind-efi htop networkmanager openssh git\n\n    #Gen the Fstab\n    genfstab -p -U /mnt >> /mnt/etc/fstab\n\n    #copy part 2 to /mnt\n    mkdir /mnt/installer\n    cp arch-install-chroot.sh /mnt/installer/\n    #Chroot and run other part of installer\n    arch-chroot /mnt sh /installer/arch-install-chroot.sh\n    \n    #Unmount that shit\n    umount /mnt\n}\n\n\n\n\n\n#Start the actual installer\nclear\necho \"-------------------------------------------------------------------------\"\necho \"        Make sure you actually have internet before you start...\"\necho \"-------------------------------------------------------------------------\"\necho \"\"\necho \"\"\necho \"-------------------------------------------------------------------------\"\necho \"This installer requires you to install this system using an EFI partition\"\necho \"      scheme. Meaning sda1 is the ESP, sda2 is swap, and sda3 is /.\"\necho \"-------------------------------------------------------------------------\"\nif $(prompt \"Do you agree to this scheme?\"); then\n    echo \"\"\n    install_system\n    log \"Be sure to check out your fstab before rebooting!\"\n\nelse\n    echo \"\"\n    log \"Fine, Install it your damn self!\"\nfi\n\n\n\n",
 					"file": "/home/jericotyler/.dotfiles/arch-install.sh",
-					"file_size": 1829,
-					"file_write_time": 1503387193000000,
 					"settings":
 					{
-						"buffer_size": 1834,
+						"buffer_size": 1950,
 						"line_ending": "Unix"
-					}
-				},
-				{
-					"file": "/home/jericotyler/20-intel.conf",
-					"settings":
-					{
-						"buffer_size": 80,
-						"line_ending": "Unix",
-						"name": "Section \"Device\""
 					}
 				},
 				{
 					"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
 					"settings":
 					{
-						"buffer_size": 847,
+						"buffer_size": 1002,
 						"line_ending": "Unix"
 					}
 				},
@@ -70,7 +41,7 @@
 					"file": "/home/jericotyler/.dotfiles/user-install.sh",
 					"settings":
 					{
-						"buffer_size": 382,
+						"buffer_size": 409,
 						"line_ending": "Unix"
 					}
 				},
@@ -78,7 +49,7 @@
 					"file": "/home/jericotyler/.dotfiles/install",
 					"settings":
 					{
-						"buffer_size": 6160,
+						"buffer_size": 6559,
 						"line_ending": "Unix"
 					}
 				}
@@ -107,6 +78,14 @@
 			},
 			"file_history":
 			[
+				"/boot/efi/EFI/refind/refind.conf",
+				"/home/jericotyler/.dotfiles/wm/.config/i3/config",
+				"/boot/refind_linux.conf",
+				"/etc/X11/xorg.conf.d/20-intel.conf",
+				"/home/jericotyler/.dotfiles/termite/.config/termite/config",
+				"/home/jericotyler/.dotfiles/misc/.Xresources",
+				"/home/jericotyler/20-intel.conf",
+				"/home/jericotyler/.dotfiles/.Xresources",
 				"/home/jericotyler/.dotfiles/wm/.config/i3/i3blocks.conf",
 				"/home/jericotyler/.Xresources2",
 				"/home/jericotyler/.config/i3/lockthisshit.sh",
@@ -119,7 +98,7 @@
 			],
 			"find":
 			{
-				"height": 0.0
+				"height": 36.0
 			},
 			"find_in_files":
 			{
@@ -150,55 +129,58 @@
 			"groups":
 			[
 				{
-					"selected": 3,
+					"selected": 0,
 					"sheets":
 					[
 						{
 							"buffer": 0,
-							"file": "/home/jericotyler/.Xresources",
+							"file": "/home/jericotyler/.dotfiles/arch-install.sh",
 							"settings":
 							{
-								"buffer_size": 537,
+								"buffer_size": 1950,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										537,
-										537
+										820,
+										820
 									]
 								],
 								"settings":
 								{
-									"auto_name": "! special",
-									"syntax": "Packages/Text/Plain text.tmLanguage"
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
 								},
 								"translation.x": 0.0,
-								"translation.y": 0.0,
+								"translation.y": 180.0,
 								"zoom_level": 1.0
 							},
 							"type": "text"
 						},
 						{
 							"buffer": 1,
-							"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
+							"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
 							"settings":
 							{
-								"buffer_size": 534,
+								"buffer_size": 1002,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										174,
-										174
+										980,
+										980
 									]
 								],
 								"settings":
 								{
-									"syntax": "Packages/Text/Plain text.tmLanguage"
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
 								},
 								"translation.x": 0.0,
 								"translation.y": 0.0,
@@ -208,101 +190,18 @@
 						},
 						{
 							"buffer": 2,
-							"file": "/home/jericotyler/.dotfiles/arch-install.sh",
-							"settings":
-							{
-								"buffer_size": 1834,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										668,
-										668
-									]
-								],
-								"settings":
-								{
-									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
-									"tab_size": 4,
-									"translate_tabs_to_spaces": true
-								},
-								"translation.x": 0.0,
-								"translation.y": 135.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
-							"buffer": 3,
-							"file": "/home/jericotyler/20-intel.conf",
-							"settings":
-							{
-								"buffer_size": 80,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										80,
-										80
-									]
-								],
-								"settings":
-								{
-									"auto_name": "Section \"Device\"",
-									"syntax": "Packages/Text/Plain text.tmLanguage"
-								},
-								"translation.x": 0.0,
-								"translation.y": 0.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
-							"buffer": 4,
-							"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
-							"settings":
-							{
-								"buffer_size": 847,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										323,
-										323
-									]
-								],
-								"settings":
-								{
-									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
-									"tab_size": 4,
-									"translate_tabs_to_spaces": true
-								},
-								"translation.x": 0.0,
-								"translation.y": 90.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
-							"buffer": 5,
 							"file": "/home/jericotyler/.dotfiles/user-install.sh",
 							"settings":
 							{
-								"buffer_size": 382,
+								"buffer_size": 409,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										362,
-										362
+										353,
+										353
 									]
 								],
 								"settings":
@@ -316,19 +215,19 @@
 							"type": "text"
 						},
 						{
-							"buffer": 6,
+							"buffer": 3,
 							"file": "/home/jericotyler/.dotfiles/install",
 							"settings":
 							{
-								"buffer_size": 6160,
+								"buffer_size": 6559,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										2341,
-										2341
+										1226,
+										1226
 									]
 								],
 								"settings":
@@ -338,7 +237,7 @@
 									"translate_tabs_to_spaces": true
 								},
 								"translation.x": 0.0,
-								"translation.y": 3690.0,
+								"translation.y": 5520.0,
 								"zoom_level": 1.0
 							},
 							"type": "text"
@@ -377,7 +276,7 @@
 				]
 			},
 			"menu_visible": true,
-			"position": "0,0,0,0,0,0,22,1920,1060,1920,1080",
+			"position": "0,0,0,0,0,0,0,1920,1060,1920,1080",
 			"replace":
 			{
 				"height": 0.0
