@@ -17,7 +17,7 @@ prompt() {
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
-sleep 30
+sleep 10
 
 pacman -Syu
 useradd -m -g users -G wheel,storage,power jericotyler

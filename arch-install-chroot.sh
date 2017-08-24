@@ -15,12 +15,12 @@ prompt() {
 genhostname(){
 
     log "What's the hostname?"
-    read localhostname
+    read 
     log "You wrote"
-    echo localhostname
+    echo $REPLY
     if $(prompt "Are you sure?"); then
-	echo ""
-        echo "JERI-LIN" >> /etc/hostname
+	    echo ""
+        echo $REPLY >> /etc/hostname
         return
     else
         genhostname
@@ -40,10 +40,11 @@ locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
 #Hostname time
-echo "JERI-LIN" > /etc/hostname
+genhostname
 
 #Set the root password
 log "Set a root password!"
+echo ""
 passwd
 
 #Bootloader time!

@@ -15,7 +15,6 @@ prompt() {
 
 install_system(){
 	#fucking goddamn network
-	dhcpcd
 	log "Time to set my clock and partition the drive!"
 	
     timedatectl set-ntp true

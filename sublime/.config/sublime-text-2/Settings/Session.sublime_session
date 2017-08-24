@@ -13,31 +13,71 @@
 			{
 				"selected_items":
 				[
+					[
+						"pkgs_",
+						"pkgs_tricky"
+					]
 				]
 			},
 			"buffers":
 			[
 				{
-					"file": "/home/jericotyler/.Xresources",
+					"file": "/home/jericotyler/.config/i3/lockthisshit.sh",
+					"settings":
+					{
+						"buffer_size": 1371,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"contents": "#!/bin/bash\nlog() {\n    echo -e \"[*] $1\" >&2\n}\n\nprompt() {\n    read -p \"[*] $1 [y/N] \" -n 1 -r\n    if [[ ! $REPLY =~ ^[Yy]$ ]]; then\n        return 1\n    else\n        return 0\n    fi\n}\n\n\ninstall_system(){\n	#fucking goddamn network\n	log \"Time to set my clock and partition the drive!\"\n	\n    timedatectl set-ntp true\n	#Let user set up the parts\n	cfdisk /dev/sda\n    #Make Swap and format the parts\n	mkswap /dev/sda2\n    swapon /dev/sda2\n	mkfs.vfat /dev/sda1\n    mkfs.ext4 /dev/sda3\n\n    #Mounting the parts\n	mount /dev/sda3 /mnt\n	mkdir /mnt/boot\n	mkdir /mnt/boot/efi\n    mount /dev/sda1 /mnt/boot/efi\n    #Install the base packages\n    pacstrap /mnt base base-devel acpi refind-efi htop networkmanager openssh git\n\n    #Gen the Fstab\n    genfstab -p -U /mnt >> /mnt/etc/fstab\n\n    #copy part 2 to /mnt\n    mkdir /mnt/installer\n    cp arch-install-chroot.sh /mnt/installer/\n    #Chroot and run other part of installer\n    arch-chroot /mnt sh /installer/arch-install-chroot.sh\n    \n    #Unmount that shit\n    umount /mnt\n}\n\n\n\n\n\n#Start the actual installer\nclear\necho \"-------------------------------------------------------------------------\"\necho \"        Make sure you actually have internet before you start...\"\necho \"-------------------------------------------------------------------------\"\necho \"\"\necho \"\"\necho \"-------------------------------------------------------------------------\"\necho \"This installer requires you to install this system using an EFI partition\"\necho \"      scheme. Meaning sda1 is the ESP, sda2 is swap, and sda3 is /.\"\necho \"-------------------------------------------------------------------------\"\nif $(prompt \"Do you agree to this scheme?\"); then\n    echo \"\"\n    install_system\n    log \"Be sure to check out your fstab before rebooting!\"\n\nelse\n    echo \"\"\n    log \"Fine, Install it your damn self!\"\nfi\n\n\n\n",
+					"file": "/home/jericotyler/.dotfiles/arch-install.sh",
+					"file_size": 1829,
+					"file_write_time": 1503387193000000,
+					"settings":
+					{
+						"buffer_size": 1834,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/home/jericotyler/.dotfiles/.Xresources",
 					"settings":
 					{
 						"buffer_size": 537,
+						"line_ending": "Unix",
+						"name": "! special"
+					}
+				},
+				{
+					"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
+					"settings":
+					{
+						"buffer_size": 534,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"file": "/home/jericotyler/.config/termite/config",
+					"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
 					"settings":
 					{
-						"buffer_size": 531,
+						"buffer_size": 847,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"file": "/home/jericotyler/.config/sublime-text-2/Packages/Color Scheme - Default/Isotope Dark.tmTheme",
+					"file": "/home/jericotyler/.dotfiles/user-install.sh",
 					"settings":
 					{
-						"buffer_size": 11053,
+						"buffer_size": 382,
+						"line_ending": "Unix"
+					}
+				},
+				{
+					"file": "/home/jericotyler/.dotfiles/install",
+					"settings":
+					{
+						"buffer_size": 6160,
 						"line_ending": "Unix"
 					}
 				}
@@ -66,6 +106,10 @@
 			},
 			"file_history":
 			[
+				"/home/jericotyler/.config/i3/config",
+				"/home/jericotyler/.config/termite/config",
+				"/home/jericotyler/.Xresources",
+				"/home/jericotyler/.config/sublime-text-2/Packages/Color Scheme - Default/Isotope Dark.tmTheme",
 				"/home/jericotyler/.config/sublime-text-2/Packages/User/Preferences.sublime-settings"
 			],
 			"find":
@@ -101,12 +145,66 @@
 			"groups":
 			[
 				{
-					"selected": 2,
+					"selected": 3,
 					"sheets":
 					[
 						{
 							"buffer": 0,
-							"file": "/home/jericotyler/.Xresources",
+							"file": "/home/jericotyler/.config/i3/lockthisshit.sh",
+							"settings":
+							{
+								"buffer_size": 1371,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										846,
+										846
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 450.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 1,
+							"file": "/home/jericotyler/.dotfiles/arch-install.sh",
+							"settings":
+							{
+								"buffer_size": 1834,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										668,
+										668
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 135.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 2,
+							"file": "/home/jericotyler/.dotfiles/.Xresources",
 							"settings":
 							{
 								"buffer_size": 537,
@@ -116,12 +214,13 @@
 								"selection":
 								[
 									[
-										424,
-										424
+										537,
+										537
 									]
 								],
 								"settings":
 								{
+									"auto_name": "! special",
 									"syntax": "Packages/Text/Plain text.tmLanguage"
 								},
 								"translation.x": 0.0,
@@ -131,11 +230,11 @@
 							"type": "text"
 						},
 						{
-							"buffer": 1,
-							"file": "/home/jericotyler/.config/termite/config",
+							"buffer": 3,
+							"file": "/home/jericotyler/.dotfiles/termite/.config/termite/config",
 							"settings":
 							{
-								"buffer_size": 531,
+								"buffer_size": 534,
 								"regions":
 								{
 								},
@@ -157,28 +256,83 @@
 							"type": "text"
 						},
 						{
-							"buffer": 2,
-							"file": "/home/jericotyler/.config/sublime-text-2/Packages/Color Scheme - Default/Isotope Dark.tmTheme",
+							"buffer": 4,
+							"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
 							"settings":
 							{
-								"buffer_size": 11053,
+								"buffer_size": 847,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										11053,
-										11053
+										323,
+										323
 									]
 								],
 								"settings":
 								{
-									"syntax": "Packages/XML/XML.tmLanguage",
-									"translate_tabs_to_spaces": false
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
 								},
 								"translation.x": 0.0,
-								"translation.y": 7727.0,
+								"translation.y": 90.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 5,
+							"file": "/home/jericotyler/.dotfiles/user-install.sh",
+							"settings":
+							{
+								"buffer_size": 382,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										362,
+										362
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+								},
+								"translation.x": 0.0,
+								"translation.y": 0.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 6,
+							"file": "/home/jericotyler/.dotfiles/install",
+							"settings":
+							{
+								"buffer_size": 6160,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										2341,
+										2341
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 3690.0,
 								"zoom_level": 1.0
 							},
 							"type": "text"
@@ -217,7 +371,7 @@
 				]
 			},
 			"menu_visible": true,
-			"position": "0,0,0,0,0,0,0,1920,1061,1920,1080",
+			"position": "0,0,0,0,0,962,11,1905,1045,1920,1080",
 			"replace":
 			{
 				"height": 0.0
