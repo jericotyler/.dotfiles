@@ -325,6 +325,7 @@ sudo mount -o remount,size=1G,noatime /tmp
 log "All done, have a good one"
 SHELL=/usr/bin/fish
 TERM=xterm-termite
+gsettings set org.cinnamon.desktop.default-applications.terminal exec xterm-termite
 exit 0
 }
 
