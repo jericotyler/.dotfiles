@@ -19,6 +19,7 @@ pkgs_tricky=(
     "rofi"
     "powerline"
     "powerline-fonts"
+    "bumblbee"
     )
 
 # Core packages Super dirty
@@ -87,6 +88,9 @@ pkgs_fonts=(
 
 pkgs_secondary=(
     #others
+    "bluez"
+    "bluez-plugins"
+    "blueman"
     "catimg"
     "escrotum-git"
     "gparted"
@@ -111,6 +115,11 @@ pkgs_secondary=(
     "xfsprogs"
     "yacpi"
     "zip"
+    "remmina"
+    "freerdp"
+    "spotify"
+    "plexmediaserver"
+    "obs-studio"
 )
 
 # Optional extra packages that I enjoy having
@@ -128,6 +137,7 @@ pkgs_extra=(
     "youtube-dl"
     "vivaldi-widevine"
     "tor-browser"
+    "steam"
     "steam-native-runtime"
     "love"
     "skypeforlinux-bin"
@@ -152,8 +162,6 @@ pkgs_utils=(
     "rainbow"
     "qemu"
     "ranger"
-    "freerdp"
-    "remmina"
     "hexchat"
     "remmina-plugin-rdesktop"
     )
@@ -170,6 +178,7 @@ stows=(
     "xorg"
 )
 
+installsub() {
 # Now we install things
 # Sudo all day every day
 log "Gonna need that password yo"
@@ -314,4 +323,16 @@ sudo mount -o remount,size=1G,noatime /tmp
 
 # And done~
 log "All done, have a good one"
+SHELL=/usr/bin/fish
+TERM=xterm-termite
 exit 0
+}
+
+wget -q --tries=10 --timeout=20 --spider http://google.com
+if [[ $? -eq 0 ]]; then
+        echo "Online"
+        installsub
+else
+        echo "Offline"
+        log "OMG! Seriously dude? FIX YOUR GODDAMN INTERNET! Fucking Christ"
+fi
