@@ -1,0 +1,5 @@
+qif [ ! -f /sys/class/power_supply/sony_controller_battery_34:c7:31:33:f4:a2/capacity ]; then
+	echo "NULL"
+else
+	echo "$(cat /sys/class/power_supply/sony_controller_battery_34:c7:31:33:f4:a2/capacity)""%"
+fi

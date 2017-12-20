@@ -4,39 +4,39 @@ font = xos4 Terminus 12px
 [colors]
 
 # special
-foreground      = #ffffff
-foreground_bold = #ffffff
-cursor          = #ffffff
-background      = rgba(00, 00, 09, 0.9)
+foreground      = #ababab
+foreground_bold = #ababab
+cursor          = #ababab
+background      = rgba(00, 00, 00, 0.9)
 
 # black
-color0  = #787dee
-color8  = #3139ee
+color0  = #000000
+color8  = #343434
 
 # red
-color1  = #fe0000
-color9  = #ad0000
+color1  = #e92f2f
+color9  = #e92f2f
 
 # green
-color2  = #0bff01
-color10 = #07ab00
+color2  = #0ed839
+color10 = #0ed839
 
 # yellow
-color3  = #fd5f00
-color11 = #7b2e00
+color3  = #dddd13
+color11 = #dddd13
 
 # blue
-color4  = #0095e4
-color12 = #006499
+color4  = #3b48e3
+color12 = #3b48e3
 
 # magenta
-color5  = #77009e
-color13 = #250031
+color5  = #f996e2
+color13 = #f996e2
 
 # cyan
-color6  = #00ffde
-color14 = #009783
+color6  = #23edda
+color14 = #23edda
 
 # white
-color7  = #aeaa38
-color15 = #ffffff
+color7  = #ababab
+color15 = #f9f9f9

@@ -1,2 +1,2 @@
 #!/bin/sh
-feh  --bg-fill '/home/jericotyler/.config/i3/memory_desktop2560.png' 
+'feh' '--bg-fill' '/home/jericotyler/.config/i3/memory_desktop2560.png' 
