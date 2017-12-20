@@ -22,84 +22,61 @@
 			"buffers":
 			[
 				{
-					"file": "/home/jericotyler/.xinitrc",
+					"file": "/home/jericotyler/.dotfiles/arch-install.sh",
 					"settings":
 					{
-						"buffer_size": 383,
+						"buffer_size": 1950,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/config.json",
+					"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
 					"settings":
 					{
-						"buffer_size": 444,
+						"buffer_size": 1002,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"contents": "{\n  \"Price_Balance\": true,\n  \"Stamina_Balance\": true,\n  \"Taxes\": true,\n  \"NPCClothing\": false,\n  \"MoreCropsMod\": true,\n  \"MenuHotkey\": \"Tab\",\n  \"DNPCD_BETA\": false,\n  \"Debug\": false,\n  \"StartTime\": 600,\n  \"StartSeason\": \"null\",\n  \"StartDay\": -1,\n  \"DialogueOnStart\": \"null\",\n  \"DialogueWhenLeavingHouse\": \"null\"\n}",
-					"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Longevity/config.json",
-					"file_size": 313,
-					"file_write_time": 1512367635000000,
+					"contents": "#!/bin/bash\n# Methods and the like\nlog() {\n    echo -e \"[*] $1\" >&2\n}\n\nprompt() {\n    read -p \"[*] $1 [y/N] \" -n 1 -r\n    if [[ ! $REPLY =~ ^[Yy]$ ]]; then\n        return 1\n    else\n        return 0\n    fi\n}\n\npkgs_tricky=(\n	\"termite\"\n    \"scrot\"\n    \"rofi\"\n    \"powerline\"\n    \"powerline-fonts\"\n    )\n\n# Core packages Super dirty\npkgs=(\n    #Core\n    \"bash-completion\"\n    \"xorg-server\"\n    \"xorg-apps\"\n    \"xorg-xinit\"\n    \"xorg-xbacklight\"\n    \"nvidia\"\n    \"xf86-video-intel\"\n    \"xf86-video-vesa\"\n    \"alsa-utils\"\n    \"pulseaudio-alsa\"\n    \"compton\"\n    \"i3-gaps\"\n    \"i3blocks-gaps\"\n    \"i3lock-color-git\"\n    \"i3status\"\n    \"acpi_call\"\n    \"network-manager-applet\"\n    \"networkmanager-dispatcher-ntpd\"\n    \"xfsudo\"\n    \"arandr\"\n    \"lxappearance-gtk3\"\n    \"arc-gtk-theme\"\n    \"gtk-theme-arc-grey-git\"\n    \"numix-circle-icon-theme-git\"\n    \"feh\"\n    \"dmenu\"\n    \"fish\"\n    \"terminus-font\"\n    \"imagemagick\"\n    \"nemo\"\n    \"nemo-preview\"\n    \"neofetch\"\n    \"sublime-text\"\n    \"peazip-gtk2\"\n    \"vivaldi\"\n    \"yaourt\"\n)\n\npkgs_fonts=(\n    \"ttf-humor-sans\"\n    \"ttf-liberation\"\n    \"ttf-ms-fonts\"\n    \"adobe-source-code-pro-fonts\"\n    \"adobe-source-serif-pro-fonts\"\n    \"adobe-source-sans-pro-fonts\"\n    \"inconsolata-psf-git\"\n    #\"awesome-terminal-fonts\"\n    \"ttf-font-icons\"\n    \"ttf-font-awesome\"\n    \"adobe-source-han-sans-cn-fonts\"\n    \"adobe-source-han-sans-kr-fonts\"\n    \"adobe-source-han-sans-otc-fonts\"\n    \"adobe-source-han-sans-tw-fonts\"\n    \"adobe-source-han-serif-cn-fonts\"\n    \"adobe-source-han-sans-jp-fonts\"\n    \"adobe-source-han-serif-jp-fonts\"\n    \"adobe-source-han-serif-kr-fonts\"\n    \"adobe-source-han-serif-otc-fonts\"\n    \"adobe-source-han-serif-tw-fonts\"\n    )\n\npkgs_secondary=(\n    #others\n    \"catimg\"\n    \"escrotum-git\"\n    \"gparted\"\n    \"gptfdisk\"\n    \"lib32-gtk2\"\n    \"lib32-libpulse\"\n    \"lib32-libxrandr\"\n    \"lib32-openal\"\n    \"ntfs-3g\"\n    \"mesa-demos\"\n    \"pavucontrol\"\n    \"perl\"\n    \"procps-ng\"\n    \"psmisc\"\n    \"python-pip\"\n    \"sl\"\n    \"systemd-sysvcompat\"\n    \"tmux\"\n    \"unrar\"\n    \"viewnior\"\n    \"vim\"\n    \"xfsprogs\"\n    \"yacpi\"\n    \"zip\"\n)\n\n# Optional extra packages that I enjoy having\npkgs_extra=(\n\n    \"baka-mplayer\"\n    \"calibre\"\n    \"cava\"\n    \"cli-visualizer\"\n    \"deluge\"\n    \"filelight\"\n    \"flashplayer-standalone\"\n    \"kcc\"\n    \"mplayer\"\n    \"youtube-dl\"\n    \"vivaldi-widevine\"\n    \"tor-browser\"\n    \"steam-native-runtime\"\n    \"love\"\n    \"skypeforlinux-bin\"\n    \"nyancat\"\n    \"pepper-flash\"\n    \"multimc5\"\n)\n\n#utils I sometimes need\npkgs_utils=(\n    \"tumbld-git\"\n    \"ufraw-thumbnailer\"\n    \"arch-install-scripts\"\n    \"darktable-git\"\n    \"freecad\"\n    \"gqrx\"\n    \"inkscape\"\n    \"lolcat\"\n    \"mangle-git\"\n    \"unigine-valley\"\n    \"scribus\"\n    \"rainbow\"\n    \"qemu\"\n    \"ranger\"\n    \"freerdp\"\n    \"remmina\"\n    \"hexchat\"\n    \"remmina-plugin-rdesktop\"\n    )\n\n# Where ma' dotfiles at, yo?\nstows=(\n    \"fish\"\n    \"git\"\n    \"termite\"\n    \"mpv\"\n    \"misc\"\n    \"sublime\"\n    \"wm\"\n    \"xorg\"\n)\n\n# Now we install things\n# Sudo all day every day\nlog \"Gonna need that password yo\"\nsudo -v\n\nlog \"Checking to see if needed things are installed...\"\nsudo pacman -S  --ignore=gcc --needed --noconfirm base-devel expac yajl git stow\n\n# Remove stows\nlog \"Cleaning up existing shmuts...\"\nrm -rf ~/.config/fish\nrm -rf ~/.config/git\nrm -rf ~/.config/i3\nrm -rf ~/.config/i3status\nrm -rf ~/.config/mpv\nrm -rf ~/.config/sublime-text-2\nrm -rf ~/.tmux.conf\nrm -rf ~/.xinitrc\n\n# Install the damn dotfiles\nlog \"Installing dotfiles...\"\nfor ((i=0; i<=$((${#stows[@]} - 1)); i++)); do\n    stow -d ~/.dotfiles -t ~ ${stows[i]}\n    log \"\\t${stows[i]} dotfiles installed!\"\ndone\n\n# Install the prerequisites\nlog \"Installing prerequisites...\"\n\nsudo rm -rf /etc/pacman.conf\nsudo stow -d ~/.dotfiles -t / pacman-root\nlog \"Pacman config installed!\"\n\nlog \"Resizing /tmp\"\nsudo mount -o remount,size=4G,noatime /tmp\n\nlog \"Synchronizing repositories...\"\nsudo pacman -Syy\n\nlog \"Checking for pacaur\"\nif [[ $(pacman -Qs pacaur) == \"\" ]]; then\n    log \"Fetching keys for packages...\"\n    gpg --recv-keys --keyserver hkp://pgp.mit.edu 1EB2638FF56C0C53\n    sudo pacman-key --refresh-keys\n\n    log \"Building pacaur...\"\n    broot=$(mktemp -d)\n\n    mkdir -p \"$broot\"\n    cd \"$broot\" || exit 1\n\n    git clone \"https://aur.archlinux.org/cower.git\"\n    git clone \"https://aur.archlinux.org/pacaur.git\"\n\n    cd \"${broot}/cower\" || exit 1\n    makepkg -s -i --noconfirm\n\n    cd \"${broot}/pacaur\" || exit 1\n    makepkg -s -i --noconfirm\n\n    log \"Cleaning up...\"\n    cd \"$HOME\" || exit 1\n    rm -rf \"$broot\"\nelse\n    log \"Looks like pacaur is already installed\"\nfi\n\n# Install the main packages\nlog \"Installing core packages...\"\nfor ((i=0; i<=$((${#pkgs[@]} - 1)); i++)); do\n    if [[ $(pacaur -Qs ${pkgs[i]}) == \"\" ]]; then\n        pacaur --noconfirm --noedit -S ${pkgs[i]}\n    fi\ndone\nlog \"Done installing core packages\"\n\nlog \"Installing Fonts...\"\nfor ((i=0; i<=$((${#pkgs_fonts[@]} - 1)); i++)); do\n    if [[ $(pacaur -Qs ${pkgs_fonts[i]}) == \"\" ]]; then\n        pacaur --noedit -S ${pkgs_fonts[i]}\n    fi\ndone\n\nlog \"Installing Secondary...\"\nfor ((i=0; i<=$((${#pkgs_secondary[@]} - 1)); i++)); do\n    if [[ $(pacaur -Qs ${pkgs_secondary[i]}) == \"\" ]]; then\n        pacaur --noedit -S ${pkgs_secondary[i]}\n    fi\ndone\n\nlog \"Installing tricky packages...\"\nfor ((i=0; i<=$((${#pkgs_tricky[@]} - 1)); i++)); do\n    if [[ $(pacaur -Qs ${pkgs_tricky[i]}) == \"\" ]]; then\n        pacaur --noedit -S ${pkgs_tricky[i]}\n    fi\ndone\nlog \"Done installing tricky packages\"\n\n# Install Fun?\nif $(prompt \"Install Funtime packages?\"); then\n    echo \"\"\n    log \"Installing extra packages...\"\n    for ((i=0; i<=$((${#pkgs_extra[@]} - 1)); i++)); do\n        if [[ $(pacaur -Qs ${pkgs_extra[i]}) == \"\" ]]; then\n            pacaur --noconfirm --noedit -S ${pkgs_extra[i]}\n        fi\n    done\n    pacaur -S termite\n    log \"Done installing Funtime packages\"\nelse\n    echo\n    log \"If you say so\"\nfi\n\n# Install Utils?\nif $(prompt \"Install extra packages?\"); then\n    echo \"\"\n    log \"Installing extra packages...\"\n    for ((i=0; i<=$((${#pkgs_utils[@]} - 1)); i++)); do\n        if [[ $(pacaur -Qs ${pkgs_utils[i]}) == \"\" ]]; then\n            pacaur --noconfirm --noedit -S ${pkgs_utils[i]}\n        fi\n    done\n    log \"Done installing extra packages\"\nelse\n    echo\n    log \"If you say so\"\nfi\n\n# Remove orphans\nif [[ ! $(pacman -Qtdq) == \"\" ]]; then\n    log \"Removing orphans...\"\n    sudo pacman -Rsn --noconfirm $(pacman -Qtdq)\nelse\n    log \"No orphans, huzza!\"\nfi\n\n# Fix temp\nlog \"Fixing /tmp size\"\nsudo mount -o remount,size=1G,noatime /tmp\n\n\n# And done~\nlog \"All done, have a good one\"\nexit 0\n",
+					"file": "/home/jericotyler/.dotfiles/install",
+					"file_size": 6559,
+					"file_write_time": 1503547823000000,
 					"settings":
 					{
-						"buffer_size": 313,
+						"buffer_size": 6564,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"file": "/home/jericotyler/.config/i3/i3blocks.conf",
+					"file": "/etc/fstab",
 					"settings":
 					{
-						"buffer_size": 1800,
+						"buffer_size": 923,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"contents": "abcdefghijklmnopqrstuvwxyz\njihgzyxwvutsrqponmlkabcdef\nomje ypm j hakzm yakamz\npray for a cuter future\n\ngp qpk kzss reqk jipak kwvl\nxppg upi yvqgvqx kwz hvowzm tze. Kwz qpkz izqzjkw kwvl pqz vl j svlk py hpropqzqkl cwvhw cvss rjtz j Omvbjhe Mvqx. Czjmvqx Kwjk cvss kmjqlsjkz hvowzmvfzg kzdk. V hjqk xzk relzsy izhjalz V wjbz kp lkje pq kwzlz owpqzl. Xppg saht.\n\ndo not tell mynt about this. \ngood job finding the cipher key. The note beneath this one is a list of components which will make a Privacy Ring. Wearing That will translate cipherized text. I cant get myself because I have to stay on these phones. Good luck\n\nj=a h=c z=e y=f p=o m=r k=t a=u e=y",
+					"file": "/boot/refind_linux.conf",
 					"settings":
 					{
-						"buffer_size": 655,
-						"line_ending": "Unix",
-						"name": "abcdefghijklmnopqrstuvwxyz"
-					}
-				},
-				{
-					"contents": "q{\n  \"KeysForBarrelAndCropTimes\": [\n    \"LeftShift\"\n  ],\n  \"CanRightClickForBarrelAndCropTimes\": true,\n  \"Sprinkler\": [\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      1,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      1,\n      0,\n      1,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      1,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ]\n  ],\n  \"QualitySprinkler\": [\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      1,\n      0,\n      1,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ]\n  ],\n  \"IridiumSprinkler\": [\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      1,\n      1,\n      0,\n      1,\n      1,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0,\n      0\n    ]\n  ],\n  \"Beehouse\": [\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      1,\n      0,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0\n    ],\n    [\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0\n    ],\n    [\n      0,\n      1,\n      1,\n      1,\n      1,\n      0,\n      1,\n      1,\n      1,\n      1,\n      0\n    ],\n    [\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0\n    ],\n    [\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      1,\n      1,\n      1,\n      0,\n      0,\n      0,\n      0\n    ],\n    [\n      0,\n      0,\n      0,\n      0,\n      0,\n      1,\n      0,\n      0,\n      0,\n      0,\n      0\n    ]\n  ]\n}",
-					"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/UI Info Suite/config.json",
-					"file_size": 5083,
-					"file_write_time": 1512264389000000,
-					"settings":
-					{
-						"buffer_size": 5084,
+						"buffer_size": 281,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/assets\\dialog.yaml",
+					"file": "/home/jericotyler/.dotfiles/nvidiasetup.sh",
 					"settings":
 					{
-						"buffer_size": 5502,
-						"line_ending": "Windows"
-					}
-				},
-				{
-					"contents": "",
-					"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/assets\\dialog.xnb",
-					"file_size": -1,
-					"file_write_time": -1,
-					"settings":
-					{
-						"buffer_size": 0,
+						"buffer_size": 116,
 						"line_ending": "Unix"
 					}
 				},
 				{
-					"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/TractorMod/config.json",
+					"file": "/home/jericotyler/.dotfiles/user-install.sh",
 					"settings":
 					{
-						"buffer_size": 402,
+						"buffer_size": 409,
 						"line_ending": "Unix"
 					}
 				}
@@ -128,6 +105,14 @@
 			},
 			"file_history":
 			[
+				"/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/TractorMod/config.json",
+				"/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/assets\\dialog.xnb",
+				"/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/assets\\dialog.yaml",
+				"/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/UI Info Suite/config.json",
+				"/home/jericotyler/.xinitrc",
+				"/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/config.json",
+				"/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Longevity/config.json",
+				"/home/jericotyler/.config/i3/i3blocks.conf",
 				"/home/jericotyler/.config/i3/spotify.py",
 				"/home/jericotyler/.config/i3/gamepad",
 				"/home/jericotyler/Downloads/cipher.txt",
@@ -223,23 +208,107 @@
 			"groups":
 			[
 				{
-					"selected": 3,
+					"selected": 4,
 					"sheets":
 					[
 						{
 							"buffer": 0,
-							"file": "/home/jericotyler/.xinitrc",
+							"file": "/home/jericotyler/.dotfiles/arch-install.sh",
 							"settings":
 							{
-								"buffer_size": 383,
+								"buffer_size": 1950,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										383,
-										383
+										0,
+										0
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 216.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 1,
+							"file": "/home/jericotyler/.dotfiles/arch-install-chroot.sh",
+							"settings":
+							{
+								"buffer_size": 1002,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										0,
+										0
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 54.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 2,
+							"file": "/home/jericotyler/.dotfiles/install",
+							"settings":
+							{
+								"buffer_size": 6564,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										585,
+										585
+									]
+								],
+								"settings":
+								{
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+									"tab_size": 4,
+									"translate_tabs_to_spaces": true
+								},
+								"translation.x": 0.0,
+								"translation.y": 972.0,
+								"zoom_level": 1.0
+							},
+							"type": "text"
+						},
+						{
+							"buffer": 3,
+							"file": "/etc/fstab",
+							"settings":
+							{
+								"buffer_size": 923,
+								"regions":
+								{
+								},
+								"selection":
+								[
+									[
+										280,
+										280
 									]
 								],
 								"settings":
@@ -253,110 +322,23 @@
 							"type": "text"
 						},
 						{
-							"buffer": 1,
-							"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/config.json",
-							"settings":
-							{
-								"buffer_size": 444,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										202,
-										202
-									]
-								],
-								"settings":
-								{
-									"syntax": "Packages/JavaScript/JSON.tmLanguage",
-									"tab_size": 2,
-									"translate_tabs_to_spaces": true
-								},
-								"translation.x": 0.0,
-								"translation.y": 0.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
-							"buffer": 2,
-							"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Longevity/config.json",
-							"settings":
-							{
-								"buffer_size": 313,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										93,
-										93
-									]
-								],
-								"settings":
-								{
-									"syntax": "Packages/JavaScript/JSON.tmLanguage",
-									"tab_size": 2,
-									"translate_tabs_to_spaces": true
-								},
-								"translation.x": 0.0,
-								"translation.y": 0.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
-							"buffer": 3,
-							"file": "/home/jericotyler/.config/i3/i3blocks.conf",
-							"settings":
-							{
-								"buffer_size": 1800,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										91,
-										91
-									]
-								],
-								"settings":
-								{
-									"rulers":
-									[
-										80
-									],
-									"syntax": "Packages/Text/Plain text.tmLanguage",
-									"word_wrap": false
-								},
-								"translation.x": 0.0,
-								"translation.y": 0.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
 							"buffer": 4,
+							"file": "/boot/refind_linux.conf",
 							"settings":
 							{
-								"buffer_size": 655,
+								"buffer_size": 281,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										26,
-										26
+										0,
+										0
 									]
 								],
 								"settings":
 								{
-									"auto_name": "abcdefghijklmnopqrstuvwxyz",
 									"syntax": "Packages/Text/Plain text.tmLanguage"
 								},
 								"translation.x": 0.0,
@@ -367,25 +349,23 @@
 						},
 						{
 							"buffer": 5,
-							"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/UI Info Suite/config.json",
+							"file": "/home/jericotyler/.dotfiles/nvidiasetup.sh",
 							"settings":
 							{
-								"buffer_size": 5084,
+								"buffer_size": 116,
 								"regions":
 								{
 								},
 								"selection":
 								[
 									[
-										1,
-										1
+										0,
+										0
 									]
 								],
 								"settings":
 								{
-									"syntax": "Packages/JavaScript/JSON.tmLanguage",
-									"tab_size": 2,
-									"translate_tabs_to_spaces": true
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
 								},
 								"translation.x": 0.0,
 								"translation.y": 0.0,
@@ -395,10 +375,10 @@
 						},
 						{
 							"buffer": 6,
-							"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/assets\\dialog.yaml",
+							"file": "/home/jericotyler/.dotfiles/user-install.sh",
 							"settings":
 							{
-								"buffer_size": 5502,
+								"buffer_size": 409,
 								"regions":
 								{
 								},
@@ -411,63 +391,7 @@
 								],
 								"settings":
 								{
-									"syntax": "Packages/YAML/YAML.tmLanguage",
-									"tab_size": 4,
-									"translate_tabs_to_spaces": true
-								},
-								"translation.x": 0.0,
-								"translation.y": 594.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
-							"buffer": 7,
-							"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/Replanter/assets\\dialog.xnb",
-							"settings":
-							{
-								"buffer_size": 0,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										0,
-										0
-									]
-								],
-								"settings":
-								{
-									"syntax": "Packages/Text/Plain text.tmLanguage"
-								},
-								"translation.x": 0.0,
-								"translation.y": 0.0,
-								"zoom_level": 1.0
-							},
-							"type": "text"
-						},
-						{
-							"buffer": 8,
-							"file": "/home/jericotyler/.steam/steam/steamapps/common/Stardew Valley/Mods/TractorMod/config.json",
-							"settings":
-							{
-								"buffer_size": 402,
-								"regions":
-								{
-								},
-								"selection":
-								[
-									[
-										293,
-										293
-									]
-								],
-								"settings":
-								{
-									"syntax": "Packages/JavaScript/JSON.tmLanguage",
-									"tab_size": 2,
-									"translate_tabs_to_spaces": true
+									"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
 								},
 								"translation.x": 0.0,
 								"translation.y": 0.0,
@@ -509,7 +433,7 @@
 				]
 			},
 			"menu_visible": true,
-			"position": "0,0,0,0,0,1280,0,3200,1060,3200,1080",
+			"position": "0,0,0,0,0,962,11,1905,1045,1920,1080",
 			"replace":
 			{
 				"height": 0.0

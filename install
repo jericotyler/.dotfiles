@@ -36,7 +36,7 @@ pkgs=(
     "pulseaudio-alsa"
     "compton"
     "i3-gaps"
-    "i3blocks"
+    "i3blocks-gaps"
     "i3lock-color-git"
     "i3status"
     "acpi_call"
