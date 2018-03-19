@@ -7,7 +7,7 @@ font = xos4 Terminus 12px
 foreground      = #ababab
 foreground_bold = #ababab
 cursor          = #ababab
-background      = rgba(45, 6, 45, 0.8)
+background      = rgba(00, 00, 00, 0.9)
 
 # black
 color0  = #000000

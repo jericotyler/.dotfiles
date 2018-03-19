@@ -10,8 +10,7 @@ echo "Downloading necesary files..."
 
 cd /tmp
 wget -O - https://tdesktop.com/linux > tsetup.tar.gz
-wget -O - https://raw.githubusercontent.com/telegramdesktop/tdesktop/master/Telegram/Telegram/Images.xcassets/Icon.iconset/icon_256x256@2x.png > 
-icon.png
+wget -O - https://raw.githubusercontent.com/telegramdesktop/tdesktop/master/Telegram/Telegram/Images.xcassets/Icon.iconset/icon_256x256@2x.png > icon.png
 
 echo "Making destination folder..."
 

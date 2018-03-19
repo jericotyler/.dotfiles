@@ -1,0 +1,16 @@
+
+fast=$(curl -s "https://bitcoinfees.earn.com/api/v1/fees/recommended" | cut -d "," -f 1 | cut -d ":" -f 2)
+thirty=$(curl -s "https://bitcoinfees.earn.com/api/v1/fees/recommended" | cut -d "," -f 2 | cut -d ":" -f 2)
+hour=$(curl -s "https://bitcoinfees.earn.com/api/v1/fees/recommended" | cut -d "," -f 3 | cut -d ":" -f 2)
+bitcoin=$(curl -s "https://api.coinbase.com/v2/prices/spot?currency=USD" | cut -d "," -f 3 | cut -d "\"" -f 4)
+sat=$(echo "$bitcoin/100000000" | bc -l)
+fastsat=$(echo "$fast*260" | bc -l)
+thirtysat=$(echo "$thirty*260" | bc -l)
+hoursat=$(echo "$hour*260" | bc -l)
+fastusd=$(echo "scale=2; $fastsat*$sat" | bc)
+thirtyusd=$(echo "scale=2; $thirtysat*$sat" | bc)
+hourusd=$(echo "scale=2; $hoursat*$sat" | bc)
+
+
+echo $bitcoin $fastusd $thirtyusd $hourusd
+

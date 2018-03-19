@@ -1,7 +1,6 @@
 ####ToDo####
 #Clean up all the bullshit in this
 
-exec --no-startup-id light-locker &
 exec --no-startup-id xrandr --dpi 96
 exec --no-startup-id ~/.fehbg &
 exec --no-startup-id nm-applet &
@@ -41,11 +40,11 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec termite
+ bindsym $mod+Return exec termite
 
 #LOCK THE SCREEN
 bindsym $mod+Ctrl+l exec ~/.config/i3/lockthisshit.sh
-#bindsym $mod+Ctrl+l exec light-locker-command -l
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -140,9 +139,6 @@ set $WS7 "7:Games"
 set $WS8 "8:RDP"
 set $WS9 "9:Music"
 set $WS10 "10:Filemanger"
-set $WS11 "11:VPN"
-set $WS12 "12:VM"
-
 
 # switch to workspace
 bindsym $mod+grave workspace $WS0
@@ -156,8 +152,6 @@ bindsym $mod+7 workspace $WS7
 bindsym $mod+8 workspace $WS8
 bindsym $mod+9 workspace $WS9
 bindsym $mod+0 workspace $WS10
-bindsym $mod+minus workspace $WS11
-bindsym $mod+plus workspace $WS12
 
 # move focused container to workspace
 bindsym $mod+Shift+grave move container to workspace $WS0
@@ -171,8 +165,6 @@ bindsym $mod+Shift+7 move container to workspace $WS7
 bindsym $mod+Shift+8 move container to workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9
 bindsym $mod+Shift+0 move container to workspace $WS10
-bindsym $mod+Shift+minus move container to workspace $WS11
-bindsym $mod+Shift+plus move container to workspace $WS12
 
 
 # reload the configuration file
@@ -221,7 +213,6 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+r mode "resize"
 
 bindsym $mod+Ctrl+s exec scrot&
-bindsym $mod+Ctrl+Shift+s exec scrot -u &
 
 #Remove Window Titlebars
 for_window [class="^.*"] border pixel 2
@@ -242,24 +233,23 @@ bar {
 	strip_workspace_numbers yes
  	#font pango:FuckYouv2 24
 	font pango:Source Sans Pro 8
-	#font pango:Font Awesome 8
 	#font pango: xos4 Terminus 18px
 	#font pango:DejaVu Sans 10
     i3bar_command i3bar -t
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
         
 	colors {
-    		separator #1bb3b3 
-    		background #2d062daa
+    		separator #B31B1B 
+    		background #000000aa
     		statusline #839496
-    		focused_workspace #1bb3b3  #1bb3b3  #222222
-    		active_workspace #1bb3b3 #1bb3b3 #fdf6e3
-    		inactive_workspace #1bb3b3 #2d062daa #1bb3b3
+    		focused_workspace #B31B1B  #B31B1B  #fdf6e3
+    		active_workspace #B31B1B #B31B1B #fdf6e3
+    		inactive_workspace #002b36 #586e75 #002b36
     		urgent_workspace #d33682 #d33682 #fdf6e3
   }
 
 }
-client.focused #1bb3b3 #1bb3b3 #ffffff #ffffff
-client.focused_inactive #711171 #711171 #eee8d5 #711171
-client.unfocused #711171 #711171 #93a1a1 #711171
+client.focused #B31B1B #B31B1B #ffffff #ffffff
+client.focused_inactive #6b1010 #6b1010 #eee8d5 #6b1010
+client.unfocused #6b1010 #6b1010 #93a1a1 #6b1010
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
